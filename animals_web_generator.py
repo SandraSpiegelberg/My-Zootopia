@@ -47,12 +47,22 @@ def create_str_of_info(list_of_dict):
   """
   animals_str = ''
   for animal in list_of_dict:
-     for key, value in animal.items():
-        animals_str += key + ' ' + value + '\n'
-  print(animals_str)
+      for key, value in animal.items():
+          animals_str += key + ': ' + value + '\n'
+  return animals_str
 
 list_infos = select_animal_info(animals_data)
-create_str_of_info(list_infos)
+str_infos = create_str_of_info(list_infos)
+
+with open('animals_template.html', 'r') as animal_temp_html:
+  animal_html_text = animal_temp_html.read()
+
+new_html_txt = animal_html_text.replace('__REPLACE_ANIMALS_INFO__', str_infos)
+
+with open('animals.html', 'w') as animals_html:
+   animals_html.write(new_html_txt)
+
+
 
 
 
