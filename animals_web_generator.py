@@ -46,10 +46,13 @@ def create_str_of_info(list_of_dict):
   animals_str = ''
   for animal in list_of_dict:
       #create list items for the html page
-      animals_str += '<li class="cards__item">'
+      animals_str += '<li class="cards__item"> \n <div class="card__title">'
       for key, value in animal.items():
-          animals_str += key + ': ' + value + '<br/>\n'
-      animals_str += '</li>'
+          if key == 'Name':
+             animals_str += value + '</div> \n <p class="card__text">'
+          else:
+            animals_str += '<strong>' + key + ':</strong> ' + value + '<br/>\n'
+      animals_str += '</p>\n</li>\n'
   return animals_str
 
 list_infos = select_animal_info(animals_data)
