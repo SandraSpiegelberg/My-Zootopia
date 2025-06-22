@@ -37,22 +37,31 @@ def select_animal_info(data):
       animals_list.append(info_dict)
   return animals_list
 
+def serialize_animal(animal_dict):
+  """
+  eate a string that includes html list items, the selected informations of one animal and line breaks
+  :param animal_dict: dictionary with selected information of one animal
+  :return:  string with selected information of one animal
+  """
+  #create html list items for the html page
+  animals_str = '<li class="cards__item"> \n <div class="card__title">'
+  for key, value in animal_dict.items():
+      if key == 'Name':
+          animals_str += value + '</div> \n <p class="card__text">'
+      else:
+          animals_str += '<strong>' + key + ':</strong> ' + value + '<br/>\n'
+  animals_str += '</p>\n</li>\n'
+  return animals_str
+
 def create_str_of_info(list_of_dict):
   """
-  create a string that includes html list items, all the selected informations and line breaks
+  create a string of all selected information from every animal
     :param list_of_dict: list of dictionaries with selected information
     :return:  string with whole selected information
   """
   animals_str = ''
   for animal in list_of_dict:
-      #create list items for the html page
-      animals_str += '<li class="cards__item"> \n <div class="card__title">'
-      for key, value in animal.items():
-          if key == 'Name':
-             animals_str += value + '</div> \n <p class="card__text">'
-          else:
-            animals_str += '<strong>' + key + ':</strong> ' + value + '<br/>\n'
-      animals_str += '</p>\n</li>\n'
+      animals_str += serialize_animal(animal)
   return animals_str
 
 list_infos = select_animal_info(animals_data)
