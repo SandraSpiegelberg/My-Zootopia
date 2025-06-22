@@ -34,8 +34,38 @@ def select_animal_info(data):
       #select Type of the animals
       if 'type' in animal['characteristics']:
           info_dict['Type'] = animal['characteristics']['type']
+      #selecte Skin_Type of the animals
+      if 'skin_type' in animal['characteristics']:
+          info_dict['Skin_Type'] = animal['characteristics']['skin_type']
       animals_list.append(info_dict)
   return animals_list
+
+def user_input_skin_type(list_of_dict):
+  """
+  creating a new list of dictionaries with only the animals that have a skin_type previously entered by the user
+  :param list_of_dict: list of dictionaries with selected information
+  :return: list of dictionaries with only the animals that have the entered skin_type
+  """
+  new_list_of_dict = []
+  list_skin_types = []
+  for animal in list_of_dict:
+      if 'Skin_Type' in animal:
+          # a list of all skin_types will be created to show this in the user input
+          if list_skin_types.count(animal['Skin_Type']) < 1:
+              list_skin_types.append(animal['Skin_Type'])
+  #user input which animals should showen of the html page
+  user_skin_type = input(f'Enter a Skin_Type from these List {list_skin_types}: ')
+  #in case of an incorrect entry, the user will be informed and the entire list of all animals will be returned 
+  if user_skin_type not in list_skin_types:
+      print(f'{user_skin_type} was not in the presented list, please enter a Skin_Type again: ')
+      new_list_of_dict = list_of_dict
+  #in case of an correct entry, the animals with the right skin_type will be added to the new list
+  else:
+      for animals in list_of_dict:
+          if 'Skin_Type' in animals:
+            if animals['Skin_Type'] == user_skin_type:
+                new_list_of_dict.append(animals)
+  return new_list_of_dict
 
 def serialize_animal(animal_dict):
   """
@@ -47,15 +77,15 @@ def serialize_animal(animal_dict):
   animals_str = '<li class="cards__item"> \n <div class="card__title">'
   for key, value in animal_dict.items():
       if key == 'Name':
-          animals_str += value + '</div> \n <p class="card__text">'
+          animals_str += value + '</div> \n <div class="card__text">\n <ul>'
       else:
-          animals_str += '<strong>' + key + ':</strong> ' + value + '<br/>\n'
-  animals_str += '</p>\n</li>\n'
+          animals_str += '<li><strong>' + key + ':</strong> ' + value + '</li>\n'
+  animals_str += '</ul>\n</div>\n</li>\n'
   return animals_str
 
 def create_str_of_info(list_of_dict):
   """
-  create a string of all selected information from every animal
+  create a string of all selected information from every animal use the serialize_animal function
     :param list_of_dict: list of dictionaries with selected information
     :return:  string with whole selected information
   """
@@ -65,7 +95,8 @@ def create_str_of_info(list_of_dict):
   return animals_str
 
 list_infos = select_animal_info(animals_data)
-str_infos = create_str_of_info(list_infos)
+list_selected_skin_type = user_input_skin_type(list_infos)
+str_infos = create_str_of_info(list_selected_skin_type)
 
 def write_html_file():
   """
