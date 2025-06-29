@@ -15,10 +15,6 @@ def load_data(file_path):
         return json.load(handle)
 
 
-# list of dictionaries every dictionary stands for an animal
-animals_data = load_data('animals_data.json')
-
-
 def select_animal_info(data):
     """ Selects the information {Name, Diet, first location, Type}
     if one of these fields doesn't exist, then it doesn't exist as well in the dictionary
@@ -111,12 +107,7 @@ def create_str_of_info(list_of_dict):
     return animals_str
 
 
-list_infos = select_animal_info(animals_data)
-list_selected_skin_type = user_input_skin_type(list_infos)
-str_infos = create_str_of_info(list_selected_skin_type)
-
-
-def write_html_file():
+def write_html_file(str_selecte_infos):
     """ Write the reading animals_template.html & the selected informations in the animals.html file 
         :params: None
         :return: None
@@ -125,11 +116,24 @@ def write_html_file():
         animal_html_text = animal_temp_html.read()
 
     new_html_txt = animal_html_text.replace(
-        '__REPLACE_ANIMALS_INFO__', str_infos)
+        '__REPLACE_ANIMALS_INFO__', str_selecte_infos)
 
     with open('animals.html', 'w', encoding='utf-8') as animals_html:
         animals_html.write(new_html_txt)
 
 
+def main():
+    """ Main function to run the script
+        :params: None
+        :return: None
+    """
+    # list of dictionaries every dictionary stands for an animal
+    animals_data = load_data('animals_data.json')
+
+    list_infos = select_animal_info(animals_data)
+    list_selected_skin_type = user_input_skin_type(list_infos)
+    str_infos = create_str_of_info(list_selected_skin_type)
+    write_html_file(str_infos)
+
 if __name__ == '__main__':
-    write_html_file()
+    main()
