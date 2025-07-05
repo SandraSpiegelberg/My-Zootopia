@@ -1,9 +1,11 @@
 """ animals_web_generator.py
 This script generates an HTML file displaying information about animals.
 It reads data from a JSON file, allows the user to filter animals by skin type,
-and creates an HTML file with the selected information."""
+and creates an HTML file with the selected information.
+"""
 
 import json
+from data_fetcher import fetch_data
 
 
 def load_data(file_path):
@@ -127,13 +129,20 @@ def main():
         :params: None
         :return: None
     """
+    animal_name = input('Enter the name of the animal: ')
+    # get animal data from the API
     # list of dictionaries every dictionary stands for an animal
-    animals_data = load_data('animals_data.json')
-
-    list_infos = select_animal_info(animals_data)
-    list_selected_skin_type = user_input_skin_type(list_infos)
-    str_infos = create_str_of_info(list_selected_skin_type)
-    write_html_file(str_infos)
+    data = fetch_data(animal_name)
+    #animals_data = load_data('animals_data.json') 
+    if not data:
+        str_html_info = f'<h2>The animal {animal_name} does not exist.</h2>'
+        write_html_file(str_html_info)
+    else:
+        list_infos = select_animal_info(data) # old version animal_data
+        list_selected_skin_type = user_input_skin_type(list_infos)
+        str_infos = create_str_of_info(list_selected_skin_type)
+        write_html_file(str_infos)
+    print('Website was successfully generated to the file animals.html.')
 
 if __name__ == '__main__':
     main()
