@@ -3,11 +3,14 @@ This script has functions to fetch animal data via API api-ninjas
 """
 
 
+import os
 import requests
+from dotenv import load_dotenv
 
-API_KEY = 'kq1HhmnSDWMP2pcRDLIIXA==5kUrqif7KOBwnxlB'
 
+load_dotenv()  # Load environment variables from .env file
 
+API_KEY = os.getenv('API_KEY')
 
 
 def fetch_data(animal_name):
