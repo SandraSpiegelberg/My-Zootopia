@@ -1,7 +1,7 @@
 # My Zootopia
 ## About 
 
-This is a Python project in which a list is created on an HTML page using freely available animal data via an API from `https://api-ninjas.com/api/animals`. The user can select which animals should be listed on the page. By entering the name of the animals and the skin type.
+This is a Python project in which a list is created on an HTML page using freely available JSON data via an API from `https://api-ninjas.com/api/animals`. The user can select which animals should be listed on the page with some properties. By entering the name of the animals and the skin type.
 
 ## Installation
 
@@ -17,6 +17,6 @@ At the moment you can search for animals via user input which are listed on the 
 ## Contributing
 
 If you'd like to contribute to this project, please follow these guidelines:
--   create a new branch to experiment with the code and possibly also open an issue in case of additional content or wishes
+-   create a new branch to experiment with the code and possibly also open a new issue in case of additional content or wishes
 -   if you find something interesting and want to share it, create a pull request
--   in case of bugs or problems, open an issue and describe the bug/problem and mark it with labels
+-   in case of bugs or problems, open a new issue and describe the bug/problem and mark it with labels
