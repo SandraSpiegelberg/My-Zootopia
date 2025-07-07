@@ -4,6 +4,7 @@ It reads data from a JSON file, allows the user to filter animals by skin type,
 and creates an HTML file with the selected information.
 """
 
+
 import json
 from data_fetcher import fetch_data
 
@@ -41,7 +42,7 @@ def select_animal_info(data):
         # selecte Skin_Type of the animals
         if 'skin_type' in animal['characteristics']:
             info_dict['Skin_Type'] = animal['characteristics']['skin_type']
-        animals_list.append(info_dict)
+        animals_list.append(info_dict)  
     return animals_list
 
 
@@ -143,6 +144,7 @@ def main():
         str_infos = create_str_of_info(list_selected_skin_type)
         write_html_file(str_infos)
     print('Website was successfully generated to the file animals.html.')
+
 
 if __name__ == '__main__':
     main()
