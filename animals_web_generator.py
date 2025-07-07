@@ -134,7 +134,7 @@ def main():
     # get animal data from the API
     # list of dictionaries every dictionary stands for an animal
     data = fetch_data(animal_name)
-    #animals_data = load_data('animals_data.json') 
+    #animals_data = load_data('animals_data.json') old version used a fix JSON file
     if not data:
         str_html_info = f'<h2>The animal {animal_name} does not exist.</h2>'
         write_html_file(str_html_info)
