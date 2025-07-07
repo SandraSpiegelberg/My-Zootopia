@@ -1,5 +1,5 @@
 """ animals_data_fetcher.py
-This script has functions to fetch animal data via API api-ninjas
+This script has a function to fetch animal data via API api-ninjas
 """
 
 
@@ -9,12 +9,12 @@ from dotenv import load_dotenv
 
 
 load_dotenv()  # Load environment variables from .env file
-
 API_KEY = os.getenv('API_KEY')
 
 
 def fetch_data(animal_name):
     """ Fetches the animals data for the animal 'animal_name'.
+    :param animal_name: str, Name of the animal to search for
     :return: a list of animals, each animal is a dictionary:
     {
         'name': ...,
@@ -33,7 +33,6 @@ def fetch_data(animal_name):
     res = requests.get(animals_url, headers={'X-Api-Key': API_KEY}, timeout=None)
     if res.status_code == 200:
         animals_data = res.json()
-
     else:
         print('Error:', res.status_code, res.text)
         animals_data = ''
